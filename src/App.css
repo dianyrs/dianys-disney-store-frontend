@@ -2,9 +2,50 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+
+
+
+
+
+.encanto-logo {
+  height: 35vmin;
   pointer-events: none;
+  margin-left: 39%;
+  margin-right: 25%;
+  margin-top: 150px;
+}
+
+.pay-here-button {
+  margin-left: 30%;
+  margin-right: 25%;
+  margin-top:100px;
+}
+
+.success-signal {
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+.disney-font {
+  font-family: 'WaltographRegular';
+  font-weight: normal;
+  width: 300px;
+  padding: 50px;
+  border: 20px;
+  text-align: center;
+  font-size: larger;
+}
+
+.message-success {
+  font-family: 'WaltographRegular';
+  font-weight: bold;
+  width: 400px;
+  padding: 15px;
+  margin: auto;
+  border: 10px;
+  text-align: center;
+  font-size: larger;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
