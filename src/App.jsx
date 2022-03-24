@@ -2,12 +2,14 @@ import './App.css';
 import Pay from './components/Pay';
 import Success from './components/Success';
 import {Routes, Route} from "react-router-dom";
-import Test from "./components/Test";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from "./components/Home";
+
 
 function App() {
   return (
-        <div className="container">
+        <div>
+        <Home/>
             <Routes>
                 <Route exact path="/pay" element={<Pay/>}>
                 </Route>

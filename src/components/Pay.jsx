@@ -41,7 +41,7 @@ const Pay = () => {
                 alignItems: "center",
                 justifyContent: "center",
             }}>
-            {stripeToken ? (<span> Processing. Please Wait... </span>) : (
+            {stripeToken ? (<Success/>) : (
                 <StripeCheckout
                     name="Diany Disney Store"
                     image="https://www.disneyplusinformer.com/wp-content/uploads/2021/12/Encanto-Avatar.png"

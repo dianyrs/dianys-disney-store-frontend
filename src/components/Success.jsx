@@ -6,6 +6,9 @@ class Success extends Component {
         return (
             <div>
                 <div>
+
+                </div>
+                <div>
                     <img src={encanto} className="encanto-logo"/>
                 </div>
                 <br/>
