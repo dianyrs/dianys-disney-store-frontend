@@ -27,6 +27,7 @@
   margin: auto;
   cursor:pointer;
   opacity: 0.5;
+  z-index: 1000;
  `;
 
  const Wrapper = styled.div`
@@ -51,7 +52,7 @@
 
  const Image = styled.img`
     height: 80%;
-    padding: 50px;
+    
     margin: 50px 0px;
  `;
 
@@ -77,8 +78,6 @@
     cursor: pointer;
  `;
 
-
-
 const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0);
      const handleClick = (direction) => {
@@ -96,7 +95,7 @@ const Slider = () => {
             </Arrow>
             <Wrapper slideIndex={slideIndex}>
                 {sliderItems.map((item) => (
-                    <Slide bg={item.bg}>
+                    <Slide bg={item.bg} key={item.id}>
                         <ImgContainer>
                             <Image src={item.img} />
                         </ImgContainer>

@@ -4,18 +4,12 @@ import Success from './components/Success';
 import {Routes, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
-
+import ProductList from "./components/ProductList";
 
 function App() {
   return (
         <div>
-        <Home/>
-            <Routes>
-                <Route exact path="/pay" element={<Pay/>}>
-                </Route>
-                <Route exact path="/success" element={<Success/>}>
-                </Route>
-            </Routes>
+        <ProductList />
         </div>
   );
 };

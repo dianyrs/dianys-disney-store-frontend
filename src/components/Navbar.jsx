@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {Search, ShoppingCartOutlined} from "@material-ui/icons";
 import {Badge} from "@mui/material";
-
+import logoImg from '../images/dd_store_logo.svg'
 
 const Container = styled.div`
   height: 60px;
@@ -59,13 +59,13 @@ const Navbar = () => {
         <Container>
             <Wrapper>
                 <Left>
-                    <Language>EN</Language>
+                    <Language></Language>
                     <SearchContainer>
                         <Input/>
-                        <Search style={{color: "gray", fontSize:16}}/>
+                        <Search style={{color: "gray", fontSize: 16}}/>
                     </SearchContainer>
                 </Left>
-                <Center><Logo style={{color: "purple"}}>DD Store</Logo></Center>
+                <Center><Logo style={{color: "purple"}}><img src={logoImg} alt={'DD Store Logo'} width={250}/></Logo></Center>
                 <Right>
                     <MenuItem>REGISTER</MenuItem>
                     <MenuItem>SIGN IN</MenuItem>
