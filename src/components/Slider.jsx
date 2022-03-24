@@ -32,7 +32,8 @@
  const Wrapper = styled.div`
     height: 100%;
     display: flex;
-   transform: translateX(${props => props.slideIndex * -100}vw);
+    transition: all 1.5s ease;
+    transform: translateX(${props => props.slideIndex * -100}vw);
  `;
 
  const Slide = styled.div`
@@ -50,6 +51,8 @@
 
  const Image = styled.img`
     height: 80%;
+    padding: 50px;
+    margin: 50px 0px;
  `;
 
  const InfoContainer = styled.div`
