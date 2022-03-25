@@ -25,6 +25,7 @@ const ImgContainer = styled.div`
 const InfoContainer = styled.div`
     flex: 1;
     padding: 0px 50px;
+    margin-top: 3%;
 `;
 
 const Title = styled.h1`
@@ -65,7 +66,6 @@ const FilterColor = styled.div`
 
 const FilterSize = styled.select`
   margin-left: 10px;
-  padding: 5px;
 `;
 
 const FilterSizeOpt = styled.option``;
@@ -133,8 +133,8 @@ const ProductPage = () => {
                             <FilterColor color="green"/>
                         </Filter>
                         <Filter>
-                            <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
+                            <FilterTitle >Size</FilterTitle>
+                            <FilterSize className="form-select w-auto">
                                 <FilterSizeOpt>XS</FilterSizeOpt>
                                 <FilterSizeOpt>S</FilterSizeOpt>
                                 <FilterSizeOpt>M</FilterSizeOpt>
