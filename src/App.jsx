@@ -5,11 +5,11 @@ import {Routes, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
 import ProductList from "./components/ProductList";
-
+import ProductPage from "./components/ProductPage";
 function App() {
   return (
         <div>
-        <ProductList />
+        <ProductPage/>
         </div>
   );
 };

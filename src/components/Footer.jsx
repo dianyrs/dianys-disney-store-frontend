@@ -7,6 +7,7 @@ import {Instagram, Twitter, WhatsApp, Facebook, Room, Phone, Mail, Payment} from
 
 const Container = styled.div`
   display: flex;
+  
 `;
 
 const Left = styled.div`
@@ -62,7 +63,7 @@ const Footer = () => {
     return(
         <Container>
             <Left>
-                <Logo style={{color: "purple"}}><img src={logoImg} alt={'DD Store Logo'} width={250}/></Logo>
+                <Logo style={{color: "purple"}}><img src={logoImg} alt={'DD Store Logo'} width={150}/></Logo>
                 <SocialContainer>
                     <SocialIcon color="3B5999">
                         <Facebook/>

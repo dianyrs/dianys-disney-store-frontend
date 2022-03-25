@@ -23,10 +23,13 @@ const Filter = styled.div`
 const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
+  margin-right: 20px;
 `;
 
 const Select = styled.select`
+    margin-right: 20px;
 `;
+
 const Option = styled.option``;
 
 const ProductList = () => {
@@ -37,7 +40,7 @@ const ProductList = () => {
             <Title>T-SHIRTS</Title>
             <FilterContainer>
                 <Filter><FilterText>Filter Products:</FilterText>
-                    <Select className="form-select d-inline w-auto mr-5">
+                    <Select className="form-select d-inline w-auto">
                         <Option disable selected >
                             Color
                         </Option>

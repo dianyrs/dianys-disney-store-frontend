@@ -4,6 +4,7 @@ import Product from "./Product";
 
 
 const Container = styled.div`
+    margin-top: 6%;
     padding: 20px;
     position: 10px;
     display: flex;
