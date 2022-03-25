@@ -41,7 +41,7 @@ const Button = styled.button`
   }
 `;
 
-const Register = () => {
+const Login = () => {
     return (
         <Container>
             <Form action="/" method="post">
@@ -59,26 +59,16 @@ const Register = () => {
                 </div>
 
                 <div className="mb-2">
-                    <label htmlFor="email">Email</label>
-                    <input className="form-control" name="email"/>
-                </div>
-
-                <div className="mb-2">
                     <label htmlFor="password">Password</label>
                     <input className="form-control" name="password"/>
                 </div>
 
-                <div className="mb-4">
-                    <label htmlFor="passwordConfirm">Confirm Password</label>
-                    <input className="form-control" name="passwordConfirm"/>
-                </div>
-
                 <div className="text-center">
-                    <Button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Register</Button>
+                    <Button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</Button>
                 </div>
             </Form>
         </Container>
     )
 };
 
-export default Register;
+export default Login;
