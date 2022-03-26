@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import Announcement from "./Announcement";
-import Products from "./Products";
 import Footer from "./Footer";
+import Products from "./Products";
+import {useEffect, useState} from "react";
+import {useParams} from 'react-router-dom';
 
-
-const Container = styled.div``;
 
 const Title = styled.h1`
-  margin: 20px;
+  margin-top: 10px;
 `;
 
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: -100px;
 `;
 
 const Filter = styled.div`
@@ -27,54 +28,49 @@ const FilterText = styled.span`
 `;
 
 const Select = styled.select`
-    margin-right: 20px;
+  margin-right: 20px;
 `;
 
-const Option = styled.option``;
-
 const ProductList = () => {
+    const params = useParams();
+    const defaultFilter = {}
+
+    if (params.category) defaultFilter.category = params.category;
+
+    const [filter, setFilter] = useState(defaultFilter);
+
     return (
-        <Container>
+        <div>
             <Announcement/>
             <Navbar/>
-            <Title>T-SHIRTS</Title>
+            <Title>
+                {params.category && params.category.length > 0 ? params.category : 'All Products'}&nbsp;
+                in the Store
+            </Title>
             <FilterContainer>
                 <Filter><FilterText>Filter Products:</FilterText>
-                    <Select className="form-select d-inline w-auto">
-                        <Option disable selected >
-                            Color
-                        </Option>
-                        <Option>White</Option>
-                        <Option>Red</Option>
-                        <Option>Blue</Option>
-                        <Option>Green</Option>
-                        <Option>Pink</Option>
-                        <Option>Purple</Option>
-                    </Select>
-                    <Select className="form-select d-inline w-auto">
-                        <Option disable selected >
-                            Size
-                        </Option>
-                        <Option>XS</Option>
-                        <Option>S</Option>
-                        <Option>M</Option>
-                        <Option>L</Option>
-                        <Option>XL</Option>
+                    <Select className="form-select d-inline w-auto"
+                            onChange={e => setFilter({...filter, size: e.target.value})}>
+                        <option value=''>Size</option>
+                        <option value='XS'>XS</option>
+                        <option value='S'>S</option>
+                        <option value='M'>M</option>
+                        <option value='L'>L</option>
+                        <option value='XL'>XL</option>
                     </Select>
                 </Filter>
                 <Filter><FilterText>Sorter Products:</FilterText>
-                    <Select className="form-select d-inline w-auto">
-                        <Option selected >
-                           Newest
-                        </Option>
-                        <Option>Price (Low to high)</Option>
-                        <Option>Price (High to low)</Option>
+                    <Select className="form-select d-inline w-auto"
+                            onChange={e => setFilter({...filter, sort: e.target.value})}>
+                        <option value=''>Newest</option>
+                        <option value='price-low'>Price (Low to high)</option>
+                        <option value='price-high'>Price (High to low)</option>
                     </Select>
                 </Filter>
             </FilterContainer>
-            <Products/>
+            <Products filter={filter}/>
             <Footer/>
-        </Container>
+        </div>
     )
 }
 

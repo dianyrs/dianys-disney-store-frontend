@@ -69,6 +69,13 @@
   color: #61dafb;
 }
 
+.confirmation {
+  font-size: 30px;
+
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

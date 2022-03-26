@@ -4,10 +4,9 @@ import React from "react";
 import {Instagram, Twitter, WhatsApp, Facebook, Room, Phone, Mail, Payment} from "@material-ui/icons";
 
 
-
 const Container = styled.div`
   display: flex;
-  
+
 `;
 
 const Left = styled.div`
@@ -15,7 +14,7 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  
+
 `;
 
 const Logo = styled.h1``;
@@ -34,7 +33,7 @@ const SocialIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-  
+
 `;
 
 const ContactItem = styled.div`
@@ -60,7 +59,7 @@ const Title = styled.h3`
 
 
 const Footer = () => {
-    return(
+    return (
         <Container>
             <Left>
                 <Logo style={{color: "purple"}}><img src={logoImg} alt={'DD Store Logo'} width={150}/></Logo>
@@ -74,24 +73,27 @@ const Footer = () => {
                     <SocialIcon color="E4405F">
                         <Instagram/>
                     </SocialIcon>
-                    <SocialIcon color="088201" >
+                    <SocialIcon color="088201">
                         <WhatsApp/>
                     </SocialIcon>
                 </SocialContainer>
             </Left>
-            <Center></Center>
             <Right>
-                <Title>Contact</Title>
-                <ContactItem><Room/>
-                    4011 SW 112th Ave, Miami, FL, 33165
+                <Title>Contact Us</Title>
+                <ContactItem>
+                    <Room/> 4011 SW 112th Ave, Miami, FL, 33165
                 </ContactItem>
-                <ContactItem> <Phone/>
-                    +1 786 343 8201
+                <ContactItem>
+                    <Phone/> <a href='tel:+1 (786) 343-8201' className="text-black text-decoration-none">+1 (786)
+                    343-8201</a>
                 </ContactItem>
-                <ContactItem> <Mail/>
-                   dianydisney@gmail.com
+                <ContactItem>
+                    <Mail/> <a href='mailto:dianydisney@gmail.com'
+                              className="text-black text-decoration-none">dianydisney@gmail.com</a>
                 </ContactItem>
-                <Payment/><img src="https://i.ibb.co/Qfvn4z6/payment.png"/>
+                <ContactItem>
+                    <Payment/> <img src="https://i.ibb.co/Qfvn4z6/payment.png"/>
+                </ContactItem>
             </Right>
         </Container>
     )

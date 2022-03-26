@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import {FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined} from "@material-ui/icons";
+import axios from "axios";
 
 const Info = styled.div`
   opacity: 0;
@@ -64,18 +65,50 @@ const Icon = styled.div`
   }
 `;
 
+const Product = ({product}) =>  {
+    const addToCart = async () => {
+        let order = JSON.parse(localStorage.getItem('order'));
 
-const Product = ({item}) =>  {
+        if (!order) {
+            const headers = {token: sessionStorage.getItem('user.token')};
+            const res = await axios.post(
+                `${process.env.REACT_APP_API_URL}/orders`,
+                {userId: sessionStorage.getItem('user.id')},
+                {headers: headers});
+
+            order = res.data;
+        }
+
+        const orderProductIndex = order.products.findIndex((p => p.productId === product._id));
+
+        if (orderProductIndex >= 0) {
+            order.products[orderProductIndex].quantity += 1;
+        } else {
+            order.products.push({
+                productId: product._id,
+                quantity: 1
+            })
+        }
+        order.amount += product.price;
+
+        axios
+            .put(`${process.env.REACT_APP_API_URL}/orders/${order._id}`, order)
+            .then(res => {
+                localStorage.setItem('order', JSON.stringify(res.data));
+                window.location.reload();
+            });
+    };
+
    return (
         <Container>
             <Circle/>
-            <Image src={item.img}/>
+            <Image src={product.image}/>
             <Info>
                 <Icon>
-                    <ShoppingCartOutlined/>
+                    <ShoppingCartOutlined onClick={() => addToCart()}/>
                 </Icon>
                 <Icon>
-                    <SearchOutlined/>
+                    <a href={`/product/${product._id}`} className='text-black'><SearchOutlined/></a>
                 </Icon>
                 <Icon>
                     <FavoriteBorderOutlined/>

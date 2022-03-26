@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import {categories} from "../data";
 import CategoryItems from "./CategoryItems";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -8,19 +9,12 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-const Categories = () => {
+const Categories = ({products}) => {
     return (
         <Container>
-            {categories.map(item => (
-                <CategoryItems item={item} key={item.id}/>
-                ))
-            }
+            {products.map(product => <CategoryItems product={product} key={product._id}/>)}
         </Container>
     );
 };
-
-
-
-
 
 export default Categories;

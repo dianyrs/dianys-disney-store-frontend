@@ -3,6 +3,9 @@ import Announcement from "./Announcement";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import {Add, Remove} from "@material-ui/icons";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {useParams} from "react-router";
 
 const Container = styled.div``;
 
@@ -12,20 +15,20 @@ const Wrapper = styled.div`
 `;
 
 const Image = styled.img`
-    margin-top: 5%;
-    width: 100%;
-    height: 90vh;
-    object-fit: cover;
+  margin-top: 5%;
+  width: 100%;
+  height: 90vh;
+  object-fit: contain;
 `;
 
 const ImgContainer = styled.div`
-    flex:1;
+  flex: 1;
 `;
 
 const InfoContainer = styled.div`
-    flex: 1;
-    padding: 0px 50px;
-    margin-top: 3%;
+  flex: 1;
+  padding: 0px 50px;
+  margin-top: 3%;
 `;
 
 const Title = styled.h1`
@@ -37,53 +40,30 @@ const Price = styled.span`
   font-size: 40px;
 `;
 
-const FilterContainer = styled.div`
-    width: 50%;
-    margin: 30px 0px;
-    display: flex;
-    justify-content: space-between;
+const Size = styled.div`
+  width: 50%;
+  margin: 30px 0px;
+  text-align: left;
 `;
 
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-  
-`;
-
-const FilterTitle = styled.span`
+const SizeTitle = styled.span`
   font-size: 20px;
   font-weight: 200;
 `;
-
-const FilterColor = styled.div`
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: ${props => props.color};
-    margin: 0px 5px;
-    cursor: pointer;
-`;
-
-const FilterSize = styled.select`
-  margin-left: 10px;
-`;
-
-const FilterSizeOpt = styled.option``;
 
 const AddContainer = styled.div`
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
 `;
 
 const AmountContainer = styled.div`
-    display: flex;
-    align-items: center;
-    font-weight: 700;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
 `;
-
 
 
 const Button = styled.button`
@@ -92,7 +72,7 @@ const Button = styled.button`
   background-color: white;
   cursor: pointer;
   font-weight: 500;
-  
+
   &:hover {
     background-color: #f8f4f4;
   }
@@ -110,46 +90,81 @@ const Amount = styled.span`
 `;
 
 
-
 const ProductPage = () => {
+    const params = useParams();
+    const [orderProductsCount, setOrderProductsCount] = useState(0);
+    const [product, setProduct] = useState({});
+    const [count, setCount] = useState(1);
+
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_API_URL}/products/find/${params.id}`)
+            .then(res => {
+                setProduct(res.data);
+            });
+
+        let order = JSON.parse(localStorage.getItem('order'));
+
+        if (order) {
+            setOrderProductsCount(order.products.reduce((itemsCount, currentProduct) => itemsCount + currentProduct.quantity, 0));
+        }
+    }, [setProduct]);
+
+    const addToCart = async () => {
+        let order = JSON.parse(localStorage.getItem('order'));
+
+        if (!order) {
+            const headers = {token: sessionStorage.getItem('user.token')};
+            const res = await axios.post(
+                `${process.env.REACT_APP_API_URL}/orders`,
+                {userId: sessionStorage.getItem('user.id')},
+                {headers: headers});
+
+            order = res.data;
+        }
+
+        const orderProductIndex = order.products.findIndex((p => p.productId === product._id));
+
+        if (orderProductIndex >= 0) {
+            order.products[orderProductIndex].quantity += count;
+        } else {
+            order.products.push({
+                productId: product._id,
+                quantity: count
+            })
+        }
+        order.amount += product.price * count;
+
+        axios
+            .put(`${process.env.REACT_APP_API_URL}/orders/${order._id}`, order)
+            .then(res => {
+                order = res.data;
+                localStorage.setItem('order', JSON.stringify(order));
+                window.location.reload();
+            });
+    };
+
     return (
         <Container>
             <Announcement/>
-            <Navbar/>
+            <Navbar orderProductsCount={orderProductsCount}/>
             <Wrapper>
                 <ImgContainer>
-                    <Image src ="https://slimages.macysassets.com/is/image/MCY/products/3/optimized/10634723_fpx.tif?op_sharpen=1&wid=1230&hei=1500&fit=fit,1&$filterxlrg$&fmt=webp" alt={'T-shirt'} />
+                    <Image src={product.image} alt={product.title}/>
                 </ImgContainer>
                 <InfoContainer>
-                    <Title>Disney Mickey Mouse Flag T-Shirt</Title>
-                    <Price>$ 20</Price>
-                    <FilterContainer>
-                        <Filter>
-                            <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="black"/>
-                            <FilterColor color="red"/>
-                            <FilterColor color="purple"/>
-                            <FilterColor color="pink"/>
-                            <FilterColor color="green"/>
-                        </Filter>
-                        <Filter>
-                            <FilterTitle >Size</FilterTitle>
-                            <FilterSize className="form-select w-auto">
-                                <FilterSizeOpt>XS</FilterSizeOpt>
-                                <FilterSizeOpt>S</FilterSizeOpt>
-                                <FilterSizeOpt>M</FilterSizeOpt>
-                                <FilterSizeOpt>L</FilterSizeOpt>
-                                <FilterSizeOpt>XL</FilterSizeOpt>
-                            </FilterSize>
-                        </Filter>
-                    </FilterContainer>
+                    <Title>{product.title}</Title>
+                    <Price>${product.price}.00</Price>
+                    <Size><SizeTitle>Size:</SizeTitle> {product.size}</Size>
                     <AddContainer>
                         <AmountContainer>
-                            <Remove/>
-                            <Amount>1</Amount>
-                            <Add/>
+                            <a href='#' className='text-black'
+                               onClick={() => setCount(Math.max(count - 1, 1))}><Remove/></a>
+                            <Amount>{count}</Amount>
+                            <a href='#' className='text-black'
+                               onClick={() => setCount(Math.min(count + 1, product.count))}><Add/></a>
                         </AmountContainer>
-                        <Button>Add to Cart</Button>
+                        <Button onClick={() => addToCart()}>Add to Cart</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>

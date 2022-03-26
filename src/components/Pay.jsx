@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Success from "./Success";
 
+
 const Pay = () => {
     const [stripeToken, setStripeToken] = useState(null);
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ const Pay = () => {
         const makeRequest = async () => {
             console.log('Stripe Token:', stripeToken);
             try {
-                const res = await axios.post("http://localhost:3001/api/checkout/payment", {
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/checkout/payment`, {
                         tokenId: stripeToken.id,
                         amount: 1000,
                     }
@@ -47,24 +48,11 @@ const Pay = () => {
                     image="https://www.disneyplusinformer.com/wp-content/uploads/2021/12/Encanto-Avatar.png"
                     billingAddress
                     shippingAddress
-                    description="Your total is $10"
+                    description="Your total is $ 10"
                     amount={1000}
                     token={onToken}
                     stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
                 >
-                    <button className="success-signal disney-font pay-here-button"
-                            style={{
-                                border: "none",
-                                width: "120",
-                                borderRadius: 5,
-                                padding: "20px",
-                                backgroundColor: "purple",
-                                color: "white",
-                                fontWeight: "700",
-                                cursor: "grab",
-                            }}
-                    > Pay Here
-                    </button>
                 </StripeCheckout>
             )}
         </div>

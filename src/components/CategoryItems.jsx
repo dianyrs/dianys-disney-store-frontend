@@ -9,7 +9,7 @@ const Container = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `;
 const Info = styled.div`
   align-items: center;
@@ -29,13 +29,13 @@ const Button = styled.button`
 `;
 
 
-const CategoryItems = ({item}) => {
+const CategoryItems = ({product}) => {
     return (
         <Container>
-            <Image src={item.img}/>
+            <Image src={product.image}/>
             <Info>
-                <Title>{item.title}</Title>
-                <Button>SHOP NOW</Button>
+                <Title>{product.typeOfProduct}</Title>
+                <a href={`/categories/${product.typeOfProduct}`}><Button>SHOP NOW</Button></a>
             </Info>
         </Container>
     )
