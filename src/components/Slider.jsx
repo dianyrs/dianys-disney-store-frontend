@@ -84,7 +84,7 @@ const Slider = () => {
         {
             id: 1,
             img: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2841041618986?fmt=webp&qlt=70&wid=643&hei=643",
-            title: "CUSTOME SALE",
+            title: "COSTUME SALE",
             desc: "GET 30% OFF FOR NEW ARRIVALS.",
             bg: "f5fafd",
             url: "/categories/Costumes"
